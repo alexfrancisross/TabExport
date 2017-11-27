@@ -505,16 +505,16 @@
         function showButtons() {
             document.getElementById("loader").style.display = "none";
             var html = '';
-            if (format.includes('p')) {
+            if (format.indexOf("p") >= 0) {
                 html += '<button class="btn btn-ppt" style="height:' + size + 'px;width:' + size + 'px" id="btn-ppt" onclick="onExportClicked(\'ppt\')"></button>'
             }
-            if (format.includes('w')) {
+            if (format.indexOf("w") >= 0) {
                 html += '<button class="btn btn-word" style="height:' + size + 'px;width:' + size + 'px" id="btn-word" onclick="onExportClicked(\'word\')"></button>'
             }
-            if (format.includes('e')) {
+            if (format.indexOf("e") >= 0) {
                 html += '<button class="btn btn-excel" style="height:' + size + 'px;width:' + size + 'px" id="btn-excel" onclick="onExportClicked(\'excel\')"></button>'
             }
-            if (format.includes('i')) {
+            if (format.indexOf("i") >= 0) {
                 html += '<button class="btn btn-img" style="height:' + size + 'px;width:' + size + 'px" id="btn-img" onclick="onExportClicked(\'image\')"></button>'
             }
             document.getElementById("buttons").innerHTML = html;
