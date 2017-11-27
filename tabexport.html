@@ -6,69 +6,114 @@
     <meta charset="utf-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            position: relative;
-            overflow: hidden;
+        /* Center the loader */
+        
+        #loader {
+            position: absolute;
+            right: 5%;
+            top: 5%;
+            margin: auto;
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
         }
-
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* Add animation to "page content" */
+        
+        .animate-bottom {
+            position: relative;
+            -webkit-animation-name: animatebottom;
+            -webkit-animation-duration: 1s;
+            animation-name: animatebottom;
+            animation-duration: 1s
+        }
+        @-webkit-keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0px;
+                opacity: 1
+            }
+        }
+        @keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
         .center {
             text-align: center;
         }
-
         .btn-info {
             background: #146c36;
             border: #146c36;
             margin: 0.1rem;
             width: 156px;
         }
-
         .btn-info:hover,
         .btn-info:active,
         .btn-info:focus {
             background: #044c16;
             border: #044c16;
         }
-
         .headline {
             color: #4B9C53;
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             margin-bottom: 30px;
         }
-
         .btn-ppt {
             background: url('powerpoint.png') no-repeat right;
             width: 50px;
             height: 50px;
             Background-size: 100%;
-
         }
-
         .btn-word {
             background: url('word.png') no-repeat right;
             width: 50px;
             height: 50px;
             Background-size: 100%;
         }
-
         .btn-img {
             background: url('image.png') no-repeat right;
             width: 50px;
             height: 50px;
             Background-size: 100%;
         }
-
         .btn-excel {
             background: url('excel.png') no-repeat right;
             width: 50px;
             height: 50px;
             Background-size: 100%;
         }
-
         .button-row {
             margin-bottom: 30px;
         }
-
         .buttons {
             text-align: right;
         }
@@ -76,14 +121,14 @@
 </head>
 
 <body>
-
+    <div id="loader"></div>
 
     <div class="buttons" id="buttons">
         <!--<button class="btn btn-ppt" id="btn-ppt" onclick="onExportClicked('ppt')"></button>
 		<button class="btn btn-word" id="btn-word" onclick="onExportClicked('word')"></button>
 		<button class="btn btn-excel" id="btn-excel" onclick="onExportClicked('excel')"></button>
-		<button class="btn btn-img" id="btn-img" onclick="onExportClicked('image')"></button>-->
-        <h5>loading...</h5>
+		<button class="btn btn-img" id="btn-img" onclick="onExportClicked('image')"></button>
+        <h5>loading...</h5>-->
 
     </div>
 
@@ -112,14 +157,13 @@
 
     <!-- word html docx library -->
     <script src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/html-docx.js"></script>
-	
+
     <script>
         //set formats. valid values 'i' 'w' 'e' 'p'
         var format = getURLParameter('format');
         if (format == null) {
             format = 'wpei';
         }
-        html = '';
 
         //set button size
         var size = getURLParameter('size');
@@ -127,19 +171,14 @@
             size = '50';
         }
 
-        if (format.includes('p')) {
-            html += '<button class="btn btn-ppt" style="height:' + size + 'px;width:' + size + 'px" id="btn-ppt" onclick="onExportClicked(\'ppt\')"></button>'
+        //set background colour
+        var background = getURLParameter('background');
+        if (background == null) {} else {
+            document.body.style.backgroundColor = '#' + background;
         }
-        if (format.includes('w')) {
-            html += '<button class="btn btn-word" style="height:' + size + 'px;width:' + size + 'px" id="btn-word" onclick="onExportClicked(\'word\')"></button>'
-        }
-        if (format.includes('e')) {
-            html += '<button class="btn btn-excel" style="height:' + size + 'px;width:' + size + 'px" id="btn-excel" onclick="onExportClicked(\'excel\')"></button>'
-        }
-        if (format.includes('i')) {
-            html += '<button class="btn btn-img" style="height:' + size + 'px;width:' + size + 'px" id="btn-img" onclick="onExportClicked(\'image\')"></button>'
-        }
-        document.getElementById("buttons").innerHTML = html;
+
+        showButtons();
+
 
         var TBLib = new TableauLib();
         var CurrentViz = TBLib.getCurrentViz();
@@ -171,6 +210,7 @@
                 data: d,
                 success: function(data) {
                     //console.log(data);
+                    showLoader();
                     var currentVizId = data.result.id;
                     var currentVizName = data.result.name;
                     var workbookId = data.result.workbook.id;
@@ -187,12 +227,10 @@
                             //console.log(data);
                             var views = data.result.views;
 
-
                             //PPT EXPORT
                             if (format == 'ppt') {
                                 // STEP 1: Create a new Presentation
                                 var pptx = new PptxGenJS();
-
                                 // STEP 2: Add a new Slides to the Presentation
                                 for (i = 0; i < views.length; i++) {
 
@@ -220,13 +258,15 @@
                                         }
                                     });
                                 }
+
                                 // STEP 4: Send the PPTX Presentation to the user, using your choice of file name
-                                pptx.save(workbookName + '.pptx');
+                                pptx.save(workbookName + '.pptx', function() {
+                                    showButtons()
+                                });
                             }
 
                             //WORD EXPORT
                             if (format == 'word') {
-
                                 var body = '';
                                 var i = 0;
                                 makeWordDoc(i);
@@ -255,6 +295,7 @@
                                                     orientation: orientation
                                                 });
                                                 download(converted, workbookName + '.docx');
+                                                showButtons();
                                             } else {
                                                 makeWordDoc(i)
                                             }
@@ -271,6 +312,7 @@
                                 toDataUrl(pngUrl, function(myBase64) {
                                     //console.log(myBase64);
                                     download(myBase64, currentVizName + '.png', "image/png")
+                                    showButtons();
                                 })
                             }
 
@@ -367,6 +409,7 @@
                                                     if (typeof console != 'undefined')
                                                         console.log(e, wbout);
                                                 }
+                                                showButtons();
                                                 return wbout;
                                             } else {
                                                 writeExcelData(i);
@@ -457,6 +500,29 @@
 
         function getURLParameter(name) {
             return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+        }
+
+        function showButtons() {
+            document.getElementById("loader").style.display = "none";
+            var html = '';
+            if (format.includes('p')) {
+                html += '<button class="btn btn-ppt" style="height:' + size + 'px;width:' + size + 'px" id="btn-ppt" onclick="onExportClicked(\'ppt\')"></button>'
+            }
+            if (format.includes('w')) {
+                html += '<button class="btn btn-word" style="height:' + size + 'px;width:' + size + 'px" id="btn-word" onclick="onExportClicked(\'word\')"></button>'
+            }
+            if (format.includes('e')) {
+                html += '<button class="btn btn-excel" style="height:' + size + 'px;width:' + size + 'px" id="btn-excel" onclick="onExportClicked(\'excel\')"></button>'
+            }
+            if (format.includes('i')) {
+                html += '<button class="btn btn-img" style="height:' + size + 'px;width:' + size + 'px" id="btn-img" onclick="onExportClicked(\'image\')"></button>'
+            }
+            document.getElementById("buttons").innerHTML = html;
+        }
+
+        function showLoader() {
+            document.getElementById("buttons").innerHTML = ''
+            document.getElementById("loader").style.display = "block";
         }
     </script>
 </body>
