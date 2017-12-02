@@ -176,9 +176,9 @@
         if (background == null) {} else {
             document.body.style.backgroundColor = '#' + background;
         }
-
-        showButtons();
-
+		
+		
+		showButtons();
 
         var TBLib = new TableauLib();
         var CurrentViz = TBLib.getCurrentViz();
@@ -187,7 +187,8 @@
         var sitePath = CurrentViz.getUrl().split('/views/')[0];
         var path = CurrentViz.getUrl().split('/views/')[1];
         var workbookName = CurrentViz.getWorkbook().getName();
-
+		var height = CurrentViz._impl.$1q.sheetSize.maxSize.height;
+		var width = CurrentViz._impl.$1q.sheetSize.maxSize.width;
 
         // Click handlers
         function onExportClicked(format) {
