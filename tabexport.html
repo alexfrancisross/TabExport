@@ -218,7 +218,7 @@
 
                     //get views
                     var getViewsUrl = hostname + '/vizportal/api/web/v1/getViews'
-                    d = '{"method":"getViews","params":{"filter":{"operator":"and","clauses":[{"operator":"eq","field":"workbookId","value":"' + workbookId + '"}]},"order":[{"field":"index","ascending":true}],"page":{"startIndex":0,"maxItems":32},"statFields":["hitsTotal","hitsLastOneMonthTotal","hitsLastThreeMonthsTotal","hitsLastTwelveMonthsTotal","favoritesTotal"]}}'
+                    d = '{"method":"getViews","params":{"filter":{"operator":"and","clauses":[{"operator":"eq","field":"workbookId","value":"' + workbookId + '"}]},"order":[{"field":"index","ascending":true}],"page":{"startIndex":0,"maxItems":128},"statFields":["hitsTotal","hitsLastOneMonthTotal","hitsLastThreeMonthsTotal","hitsLastTwelveMonthsTotal","favoritesTotal"]}}'
                     var xhr = $.ajax({
                         url: getViewsUrl,
                         method: "POST",
