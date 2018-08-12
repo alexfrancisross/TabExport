@@ -1,0 +1,111 @@
+        /* Center the loader */
+        
+        #loader {
+            position: absolute;
+            right: 5%;
+            top: 5%;
+            margin: auto;
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* Add animation to "page content" */
+        
+        .animate-bottom {
+            position: relative;
+            -webkit-animation-name: animatebottom;
+            -webkit-animation-duration: 1s;
+            animation-name: animatebottom;
+            animation-duration: 1s
+        }
+        @-webkit-keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0px;
+                opacity: 1
+            }
+        }
+        @keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+        .center {
+            text-align: center;
+        }
+        .btn-info {
+            background: #146c36;
+            border: #146c36;
+            margin: 0.1rem;
+            width: 156px;
+        }
+        .btn-info:hover,
+        .btn-info:active,
+        .btn-info:focus {
+            background: #044c16;
+            border: #044c16;
+        }
+        .headline {
+            color: #4B9C53;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .btn-ppt {
+            background: url('../img/powerpoint.png') no-repeat right;
+            width: 50px;
+            height: 50px;
+            Background-size: 100%;
+        }
+        .btn-word {
+            background: url('../img/word.png') no-repeat right;
+            width: 50px;
+            height: 50px;
+            Background-size: 100%;
+        }
+        .btn-img {
+            background: url('../img/image.png') no-repeat right;
+            width: 50px;
+            height: 50px;
+            Background-size: 100%;
+        }
+        .btn-excel {
+            background: url('../img/excel.png') no-repeat right;
+            width: 50px;
+            height: 50px;
+            Background-size: 100%;
+        }
+        .button-row {
+            margin-bottom: 30px;
+        }
+        .buttons {
+            text-align: right;
+        }

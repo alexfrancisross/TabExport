@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- adapated from https://bl.ocks.org/mbostock/4062045 -->
+    <meta charset="utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/tabexport.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="loader"></div>
+
+    <div class="buttons" id="buttons">
+        <!--<button class="btn btn-ppt" id="btn-ppt" onclick="onExportClicked('ppt')"></button>
+		<button class="btn btn-word" id="btn-word" onclick="onExportClicked('word')"></button>
+		<button class="btn btn-excel" id="btn-excel" onclick="onExportClicked('excel')"></button>
+		<button class="btn btn-img" id="btn-img" onclick="onExportClicked('image')"></button>
+        <h5>loading...</h5>-->
+
+    </div>
+
+    <script src="https://public.tableau.com/javascripts/api/tableau-2.1.1.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- vvv PptxGenJS libraries (jquery/jszip/pptxgen are required) vvv -->
+    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/jszip3.min.js"></script>
+    <!-- renamed to jszip3 for pptxgen to reference -->
+    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/promise.min.js"></script>
+    <!-- optional if not using IE11 -->
+
+    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/pptxgen.js"></script>
+    <!-- ^^^ PptxGenJS libraries ^^^ -->
+    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/download.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/tableauLib.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/base64.js"></script>
+
+    <!-- SheetJS js-xlsx library -->
+    <script type="text/javascript" src="https://rawgit.com/xSirrioNx/js-xlsx/master/jszip.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/SheetJS/js-xlsx/master/dist/cpexcel.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/SheetJS/js-xlsx/master/shim.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/xSirrioNx/js-xlsx/master/xlsx.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+
+    <!-- word html docx library -->
+    <script src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/html-docx.js"></script>
+	
+	<!-- tabexport library -->
+    <script src="../js/tabexport.js"></script>
+
+   
+</body>
+
+</html>

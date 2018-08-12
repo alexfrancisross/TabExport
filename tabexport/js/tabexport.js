@@ -1,164 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <!-- adapated from https://bl.ocks.org/mbostock/4062045 -->
-    <meta charset="utf-8">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Center the loader */
-        
-        #loader {
-            position: absolute;
-            right: 5%;
-            top: 5%;
-            margin: auto;
-            border: 5px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 5px solid #3498db;
-            width: 30px;
-            height: 30px;
-            -webkit-animation: spin 2s linear infinite;
-            animation: spin 2s linear infinite;
-        }
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        /* Add animation to "page content" */
-        
-        .animate-bottom {
-            position: relative;
-            -webkit-animation-name: animatebottom;
-            -webkit-animation-duration: 1s;
-            animation-name: animatebottom;
-            animation-duration: 1s
-        }
-        @-webkit-keyframes animatebottom {
-            from {
-                bottom: -100px;
-                opacity: 0
-            }
-            to {
-                bottom: 0px;
-                opacity: 1
-            }
-        }
-        @keyframes animatebottom {
-            from {
-                bottom: -100px;
-                opacity: 0
-            }
-            to {
-                bottom: 0;
-                opacity: 1
-            }
-        }
-        .center {
-            text-align: center;
-        }
-        .btn-info {
-            background: #146c36;
-            border: #146c36;
-            margin: 0.1rem;
-            width: 156px;
-        }
-        .btn-info:hover,
-        .btn-info:active,
-        .btn-info:focus {
-            background: #044c16;
-            border: #044c16;
-        }
-        .headline {
-            color: #4B9C53;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-        .btn-ppt {
-            background: url('powerpoint.png') no-repeat right;
-            width: 50px;
-            height: 50px;
-            Background-size: 100%;
-        }
-        .btn-word {
-            background: url('word.png') no-repeat right;
-            width: 50px;
-            height: 50px;
-            Background-size: 100%;
-        }
-        .btn-img {
-            background: url('image.png') no-repeat right;
-            width: 50px;
-            height: 50px;
-            Background-size: 100%;
-        }
-        .btn-excel {
-            background: url('excel.png') no-repeat right;
-            width: 50px;
-            height: 50px;
-            Background-size: 100%;
-        }
-        .button-row {
-            margin-bottom: 30px;
-        }
-        .buttons {
-            text-align: right;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="loader"></div>
-
-    <div class="buttons" id="buttons">
-        <!--<button class="btn btn-ppt" id="btn-ppt" onclick="onExportClicked('ppt')"></button>
-		<button class="btn btn-word" id="btn-word" onclick="onExportClicked('word')"></button>
-		<button class="btn btn-excel" id="btn-excel" onclick="onExportClicked('excel')"></button>
-		<button class="btn btn-img" id="btn-img" onclick="onExportClicked('image')"></button>
-        <h5>loading...</h5>-->
-
-    </div>
-
-    <script src="https://public.tableau.com/javascripts/api/tableau-2.1.1.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <!-- vvv PptxGenJS libraries (jquery/jszip/pptxgen are required) vvv -->
-    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/jszip3.min.js"></script>
-    <!-- renamed to jszip3 for pptxgen to reference -->
-    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/promise.min.js"></script>
-    <!-- optional if not using IE11 -->
-
-    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/pptxgen.js"></script>
-    <!-- ^^^ PptxGenJS libraries ^^^ -->
-    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/download.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/tableauLib.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/base64.js"></script>
-
-    <!-- SheetJS js-xlsx library -->
-    <script type="text/javascript" src="https://rawgit.com/xSirrioNx/js-xlsx/master/jszip.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/SheetJS/js-xlsx/master/dist/cpexcel.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/SheetJS/js-xlsx/master/shim.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/xSirrioNx/js-xlsx/master/xlsx.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
-
-    <!-- word html docx library -->
-    <script src="https://cdn.rawgit.com/alexfrancisross/tabexport/c421b86d/libs/html-docx.js"></script>
-
-    <script>
         //set formats. valid values 'i' 'w' 'e' 'p'
         var format = getURLParameter('format');
         if (format == null) {
@@ -176,22 +15,18 @@
         if (background == null) {} else {
             document.body.style.backgroundColor = '#' + background;
         }
-		
-		
+			
 		showButtons();
-
-        var TBLib = new TableauLib();
-        var CurrentViz = TBLib.getCurrentViz();
-        var Worksheets = TBLib.getAllWorksheets();
-        var hostname = CurrentViz._impl.$1n.host_url;
-        var sitePath = CurrentViz.getUrl().split('/views/')[0];
-        var path = CurrentViz.getUrl().split('/views/')[1];
-        var workbookName = CurrentViz.getWorkbook().getName();
-		var height = CurrentViz._impl.$1q.sheetSize.maxSize.height;
-		var width = CurrentViz._impl.$1q.sheetSize.maxSize.width;
 
         // Click handlers
         function onExportClicked(format) {
+			var TBLib = new TableauLib();
+			var CurrentViz = TBLib.getCurrentViz();
+			var Worksheets = TBLib.getAllWorksheets();
+			var hostname = CurrentViz._impl.$1n.host_url;
+			var sitePath = CurrentViz.getUrl().split('/views/')[0];
+			var path = CurrentViz.getUrl().split('/views/')[1];
+			var workbookName = CurrentViz.getWorkbook().getName();
 
             var xsrf = getCookie('XSRF-TOKEN');
             //console.log(xsrf);
@@ -525,7 +360,3 @@
             document.getElementById("buttons").innerHTML = ''
             document.getElementById("loader").style.display = "block";
         }
-    </script>
-</body>
-
-</html>
